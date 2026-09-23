@@ -1,0 +1,25 @@
+# OS / editors
+.DS_Store
+.vscode/
+__pycache__/
+.ipynb_checkpoints/
+
+# Python env
+.venv/
+
+# Data never goes to git (link to Drive in README instead)
+data/
+reddit_07/
+reddit_08/
+*.zst
+*.jsonl
+*.csv
+
+# Kartonky photos: archive author's condition, never publish
+images/
+
+# Old script versions (kept locally only)
+scripts_old/
+
+# Third-party tools (cloned separately, linked in README)
+tools/
