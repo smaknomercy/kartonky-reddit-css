@@ -11,7 +11,7 @@ and later with the daily news.
 | | |
 |---|---|
 | Dataset | Google Drive, view-only: `clean/` (0.66 GB), `raw_filtered/` (1.23 GB), `kartonky_author_export/`. The link is shared with the course in our homework reports |
-| Video pitch | _TBD_ |
+| Video pitch | [YouTube](https://youtu.be/HenYkfT-hWA) |
 | Contribution to the course tool | [reddit-dump-extractor PR #2](https://github.com/SanGreel/reddit-dump-extractor/pull/2): ~2.2× faster, −62% memory, identical output |
 
 ## First look
