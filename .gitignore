@@ -23,3 +23,6 @@ scripts_old/
 
 # Third-party tools (cloned separately, linked in README)
 tools/
+
+# Local drafts
+reports/PR_*.md

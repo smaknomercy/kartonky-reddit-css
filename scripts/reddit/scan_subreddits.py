@@ -1,12 +1,12 @@
 """
-Step 1 of the Reddit pipeline: find which subreddits discuss the July 2026
+Step 3a of the pipeline: find which subreddits discuss the July 2026
 protests, before extracting anything.
 
-Reads pre-grepped submission JSON lines from stdin (zstd -dc | grep -iE ... |)
-and counts keyword hits per subreddit. Output: CSV sorted by hit count.
+Reads pre-filtered submission JSON lines from stdin and counts keyword hits
+per subreddit (exact regex check on title + selftext). Output: CSV sorted by
+hit count. Normally called by run_scan.sh:
 
-Usage:
-  zstd -dc --long=31 RS_2026-07.zst | grep -iE "$PATTERN" \
+  zstd -dc --long=31 RS_2026-07.zst | rg -i "$PATTERN" \
     | python3 scan_subreddits.py > subreddit_hits_2026-07.csv
 """
 import csv

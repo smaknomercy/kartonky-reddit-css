@@ -1,5 +1,5 @@
 """
-Summarize run_scan_fast.sh / run_scan.sh output and help pick subreddits.
+Step 3b: summarize run_scan.sh output and help pick subreddits.
 
 Merges the monthly subreddit_hits_*.csv files, ranks subreddits by a chosen
 keyword group, flags typical noise and writes a human-readable report.

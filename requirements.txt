@@ -1,5 +1,5 @@
 pandas>=2.0
-requests>=2.31
-zstandard>=0.22
-matplotlib>=3.8
-ipykernel   # enough to run notebooks in VS Code; full "jupyter" pulls ~100 packages
+requests>=2.31      # Kartonky scraper
+matplotlib>=3.8     # notebook charts
+ipykernel           # run the notebook in VS Code / Jupyter
+nbformat            # notebooks/_build_notebook.py
