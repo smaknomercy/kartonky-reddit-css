@@ -1,6 +1,7 @@
 # Kartonky × Reddit: offline vs online protest discourse (July 2026)
 
 Computational Social Science course, NaUKMA Faculty of Informatics, 2026.
+Team 38: Yaroslav Smakorovskyi (lead), Veronika Kachai, Anton Pihuliak.
 
 In July 2026 people in Ukraine went out with cardboard posters ("картонки") after
 Fedorov's dismissal from the Ministry of Defence. This project compares what was
@@ -9,8 +10,7 @@ and later with the daily news.
 
 | | |
 |---|---|
-| Dataset (Google Drive) | _TBD_ |
-| H2 report (PDF) | _TBD_ |
+| Dataset | Google Drive, view-only: `clean/` (0.66 GB), `raw_filtered/` (1.23 GB), `kartonky_author_export/`. The link is shared with the course in our homework reports |
 | Video pitch | _TBD_ |
 | Contribution to the course tool | [reddit-dump-extractor PR #2](https://github.com/SanGreel/reddit-dump-extractor/pull/2): ~2.2× faster, −62% memory, identical output |
 
@@ -29,7 +29,7 @@ the event changes *what* people discuss, not *how much*. Details are in
 | Source | What | Period | Rows (clean) |
 |---|---|---|---|
 | [Kartonky](https://kartonky.propellercrew.com) archive | protest posters: text, text origin (typed / OCR), self-reported city, dates, likes | 16.07–17.08.2026 | 4,448 |
-| Reddit submissions ([Pushshift dumps](https://academictorrents.com/details/30dee5f0406da7a353aff6a8caa2d54fd01f2ca1)) | posts from 8 subreddits | July–August 2026 | 34,424 |
+| Reddit submissions (Pushshift-format monthly dumps: [2026-07](https://academictorrents.com/details/e04a4fda12826ab1d181eef6512b36aca63c70ff), [2026-08](https://academictorrents.com/details/f4848163a5fb650e4b15eee0202858447bca120a)) | posts from 8 subreddits | July–August 2026 | 34,424 |
 | Reddit comments (same dumps) | comments from 8 subreddits | July–August 2026 | 1,467,671 |
 
 **Size:** 1.23 GB of filtered Reddit data (all fields) → 0.66 GB of clean CSVs.
@@ -47,7 +47,8 @@ day before the protests, the start day (16.07) and the following days. Two
 months give a two-week baseline before and six weeks after.
 
 **Ethics.** Poster photos are not redistributed (the archive author's condition:
-publish analysis, not images). No data is stored in this repo.
+publish analysis, not images). No data and no link to it are stored in this repo:
+data collected for the course stays within the course.
 
 **Citation.** «Картонки: народна галерея протестних плакатів» [онлайн-архів],
 автор Артем Сах, 2026, https://kartonky.propellercrew.com
@@ -82,8 +83,10 @@ tools/reddit-dump-extractor/venv/bin/pip install zstandard orjson pandas pyarrow
 
 ### 0. Download the data
 
-- **Reddit:** from the [Pushshift torrent](https://academictorrents.com/details/30dee5f0406da7a353aff6a8caa2d54fd01f2ca1)
-  select only four files (~155 GB compressed) and place them like this:
+- **Reddit:** two monthly torrents on Academic Torrents,
+  [Reddit comments/submissions 2026-07](https://academictorrents.com/details/e04a4fda12826ab1d181eef6512b36aca63c70ff) (80.3 GB) and
+  [Reddit comments/submissions 2026-08](https://academictorrents.com/details/f4848163a5fb650e4b15eee0202858447bca120a) (74.6 GB).
+  Place the files like this:
   ```
   reddit_07/submissions/RS_2026-07.zst   23.2 GB
   reddit_07/comments/RC_2026-07.zst      57.1 GB
@@ -140,6 +143,7 @@ notebooks/                   Task 2 exploration (+ generator script)
 reports/
   figures/                   charts from the notebook, DataFrame screenshot
   subreddit_scan_report.md   why these 8 subreddits
+  H*_38.*      (gitignored)  homework reports, submitted to the course
 data/          (gitignored)  raw + clean data, logs
 images/        (gitignored)  poster photos, local only
 reddit_07/, reddit_08/ (gitignored)  Pushshift dumps

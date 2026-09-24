@@ -26,3 +26,12 @@ tools/
 
 # Local drafts
 reports/PR_*.md
+
+# Homework reports carry the dataset link: submitted to the course, not published
+reports/H[0-9]*_38.*
+
+# LaTeX build files
+reports/*.aux
+reports/*.log
+reports/*.out
+reports/*.synctex.gz
