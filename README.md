@@ -1,7 +1,7 @@
 # Kartonky × Reddit: offline vs online protest discourse (July 2026)
 
 Computational Social Science course, NaUKMA Faculty of Informatics, 2026.
-Team 38: Yaroslav Smakorovskyi (lead), Veronika Kachai, Anton Pihuliak.
+Team 7: Yaroslav Smakorovskyi (lead), Veronika Kachai, Anton Pihuliak.
 
 In July 2026 people in Ukraine went out with cardboard posters ("картонки") after
 Fedorov's dismissal from the Ministry of Defence. This project compares what was
@@ -143,7 +143,7 @@ notebooks/                   Task 2 exploration (+ generator script)
 reports/
   figures/                   charts from the notebook, DataFrame screenshot
   subreddit_scan_report.md   why these 8 subreddits
-  H*_38.*      (gitignored)  homework reports, submitted to the course
+  H*_7.*       (gitignored)  homework reports, submitted to the course
 data/          (gitignored)  raw + clean data, logs
 images/        (gitignored)  poster photos, local only
 reddit_07/, reddit_08/ (gitignored)  Pushshift dumps

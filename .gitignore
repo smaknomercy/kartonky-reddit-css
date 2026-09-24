@@ -28,7 +28,7 @@ tools/
 reports/PR_*.md
 
 # Homework reports carry the dataset link: submitted to the course, not published
-reports/H[0-9]*_38.*
+reports/H[0-9]*_[0-9]*.*
 
 # LaTeX build files
 reports/*.aux
