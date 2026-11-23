@@ -1,7 +1,7 @@
 """
 Download Kartonky poster images listed in kartonky.csv.
 
-- Saves to images/<id>.jpg
+- Saves to data/images/<id>.jpg
 - Resumable: already downloaded files are skipped, so you can stop (Ctrl+C) and rerun
 - Writes images_manifest.csv: id, status, bytes, path
 - Polite: few parallel workers + small delay per request
@@ -12,7 +12,7 @@ from any working directory):
       scripts/kartonky_scraped/kartonky_images.py  <- this file
       data/kartonky_scraped/2026-09-18/kartonky.csv    <- input (latest dated folder by default)
       data/kartonky_scraped/2026-09-18/images_manifest.csv  <- output log
-      images/<id>.jpg                 <- output images
+      data/images/<id>.jpg            <- output images
 
 Usage:
     python scripts/kartonky_scraped/kartonky_images.py                        # latest snapshot in data/kartonky_scraped/
@@ -41,7 +41,7 @@ USER_AGENT = "KartonkyStudentTest/0.3 (NaUKMA CSS course, non-commercial)"
 # Project root: this file lives in scripts/kartonky_scraped/
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data" / "kartonky_scraped"
-OUT_DIR = ROOT / "images"
+OUT_DIR = ROOT / "data" / "images"
 DELAY_SEC = 0.3  # per request, per worker
 
 _local = threading.local()

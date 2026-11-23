@@ -7,10 +7,17 @@ __pycache__/
 # Python env
 .venv/
 
-# Data never goes to git (link to Drive in README instead)
-data/
-reddit_07/
-reddit_08/
+# Secrets: API keys, GCP credentials
+.env
+*.env
+gcp-*.json
+
+# Data never goes to git (link to Drive in README instead).
+# Locally data is a symlink to ../data, so no trailing slash here
+data
+# Monthly Reddit dumps (reddit_03/ ... reddit_08/, ~70 GB each)
+reddit_[0-9][0-9]/
+dumps/
 *.zst
 *.jsonl
 *.csv
@@ -35,3 +42,6 @@ reports/*.aux
 reports/*.log
 reports/*.out
 reports/*.synctex.gz
+
+# Notebook caches (sentiment scores etc.), rebuilt from data
+reports/cache/

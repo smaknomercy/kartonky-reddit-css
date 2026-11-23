@@ -63,6 +63,8 @@ data collected for the course stays within the course.
 | 4. Reddit extraction: filter dumps by subreddit (739M comment + 91M submission lines) | [reddit-dump-extractor](https://github.com/SanGreel/reddit-dump-extractor) with [PR #2](https://github.com/SanGreel/reddit-dump-extractor/pull/2) | `data/reddit_raw/` (1.23 GB) |
 | 5. Reddit cleaning: analysis columns, duplicate ids, UTC + Kyiv-local dates, flags for removed text / deleted author / AutoModerator / top-level (flagged, not dropped) | `scripts/reddit/clean_reddit.py` | `data/clean/reddit_*.csv` + `reddit_cleaning_log.txt` |
 | 6. Exploration (H2 Task 2): sizes, row counts, breakdown by type, frequencies, activity per day | `notebooks/01_dataset_overview.ipynb` | `reports/figures/` |
+| 7. Coverage check before deleting the dumps: one streaming pass per dump file (sha256, hourly volume of all Reddit, Fedorov / kartonky mentions in all subreddits), then share of mentions inside our 8 and their timeline vs the rest of Reddit | `scripts/reddit/dump_pass.sh`, `coverage.py` | `data/reddit_allsubs/` + `coverage_report.md` |
+| 8. Manual annotation sample (H4): 300 unique poster texts, 300 comments stratified by subreddit group × mention type; shared part for Cohen's kappa, one sheet per annotator | `scripts/labeling/make_annotation_sample.py`, guide: [`prompts/annotation_guide.md`](prompts/annotation_guide.md) | `data/labels/annotation_v1/` |
 
 Every step writes a log with counts, so each number above can be traced.
 
@@ -138,14 +140,19 @@ config/
 scripts/
   kartonky_scraped/          our scraper (site API) + photo downloader
   kartonky_author_export/    cleaning of the author's export
-  reddit/                    subreddit scan + ranking, Reddit cleaning
-notebooks/                   Task 2 exploration (+ generator script)
+  reddit/                    subreddit scan + ranking, Reddit cleaning,
+                             one-pass dump check (dump_pass) + coverage
+  labeling/                  manual annotation sample (H4)
+prompts/                     annotation guide (later: LLM labelling prompts)
+notebooks/                   exploration (H2) and EDA (H3)
 reports/
   figures/                   charts from the notebook, DataFrame screenshot
   subreddit_scan_report.md   why these 8 subreddits
   H*_7.*       (gitignored)  homework reports, submitted to the course
-data/          (gitignored)  raw + clean data, logs
-images/        (gitignored)  poster photos, local only
-reddit_07/, reddit_08/ (gitignored)  Pushshift dumps
-tools/         (gitignored)  reddit-dump-extractor clone
+data/          (gitignored)  raw + clean data, logs, labels, poster photos (data/images/)
+reddit_MM/     (gitignored)  monthly Pushshift-format dumps
 ```
+
+Locally `data` is a symlink to a folder next to the repo, and `reddit-dump-extractor`
+is cloned next to the repo as well (`../tools/`); both layouts work with the commands above
+as long as `data/` resolves from the repo root.
