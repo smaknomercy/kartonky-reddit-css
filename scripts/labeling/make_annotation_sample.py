@@ -77,7 +77,8 @@ def sample_posters(n, rng_state, log):
     })
 
 
-def sample_comments(n_per_stratum, rng_state, log):
+def comment_pool(log):
+    """Comments the LLM labels: our 8 subreddits, Fedorov in the body or the thread title."""
     cols = ["id", "link_id", "subreddit", "body", "link_title", "text_removed", "is_automod"]
     d = pd.read_csv(CLEAN / "reddit_comments.csv", usecols=cols, dtype=str, keep_default_na=False)
     d = d[(d.text_removed != "True") & (d.is_automod != "True")]
@@ -93,6 +94,11 @@ def sample_comments(n_per_stratum, rng_state, log):
     pop["stratum"] = pop.subreddit.map(SUB_GROUP) + "/" + pop.mention
     log.append(f"comments population (our 8, not removed, not AutoModerator, Fedorov in body or thread title): {len(pop):,}")
     log.append("stratum sizes: " + ", ".join(f"{k} {v:,}" for k, v in pop.stratum.value_counts().sort_index().items()))
+    return pop
+
+
+def sample_comments(n_per_stratum, rng_state, log):
+    pop = comment_pool(log)
     s = pop.groupby("stratum", group_keys=False).sample(n_per_stratum, random_state=rng_state)
     return pd.DataFrame({
         "orig_id": s.id, "source": "comment", "stratum": s.stratum,
