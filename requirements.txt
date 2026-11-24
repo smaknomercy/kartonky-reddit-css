@@ -3,3 +3,9 @@ requests>=2.31      # Kartonky scraper
 matplotlib>=3.8     # notebook charts
 ipykernel           # run the notebook in VS Code / Jupyter
 nbformat            # notebooks/_build_notebook.py
+openpyxl>=3.1      # annotation spreadsheets (scripts/labeling)
+anthropic          # LLM labelling, --backend api only
+torch              # sentiment model (scripts/sentiment)
+transformers
+sentencepiece
+protobuf
