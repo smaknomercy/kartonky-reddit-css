@@ -45,3 +45,7 @@ reports/*.synctex.gz
 
 # Notebook caches (sentiment scores etc.), rebuilt from data
 reports/cache/
+
+# Chart style experiments of 25.11 (variants A/B/C, font tests); the chosen style is scripts/viz/theme.py
+scripts/viz/variants/
+reports/figures/hw4/variants/
