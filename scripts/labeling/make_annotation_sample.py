@@ -79,7 +79,7 @@ def sample_posters(n, rng_state, log):
 
 def comment_pool(log):
     """Comments the LLM labels: our 8 subreddits, Fedorov in the body or the thread title."""
-    cols = ["id", "link_id", "subreddit", "body", "link_title", "text_removed", "is_automod"]
+    cols = ["id", "link_id", "subreddit", "date_local", "body", "link_title", "text_removed", "is_automod"]
     d = pd.read_csv(CLEAN / "reddit_comments.csv", usecols=cols, dtype=str, keep_default_na=False)
     d = d[(d.text_removed != "True") & (d.is_automod != "True")]
     # link_title is empty in ~89% of comments in the dumps: take the thread title from submissions

@@ -22,7 +22,8 @@ Output: data/sentiment/xlmr_v1/h2/
   placebo.csv                 placebo changes per group
   h2_report.txt               the numbers in words
 
-Usage: python scripts/sentiment/h2_did.py [--b 5000]
+Usage: python scripts/sentiment/h2_did.py [--b 5000] [--window 2026-07-15:2026-07-20] [--out DIR]
+       (robustness: --window 2026-07-15:2026-07-22 --out data/sentiment/xlmr_v1/h2_w15_22)
 """
 import argparse
 from pathlib import Path
@@ -84,9 +85,13 @@ def main():
     ap.add_argument("--b", type=int, default=5000, help="bootstrap replicates")
     ap.add_argument("--scores", type=Path, default=SDIR / "scores.csv")
     ap.add_argument("--out", type=Path, default=SDIR / "h2")
+    ap.add_argument("--window", default="2026-07-15:2026-07-20", help="protest window, first:last day")
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(2026)
+    lo, hi = args.window.split(":")
+    PERIODS["window"] = (lo, hi)
+    PERIODS["late_july"] = ((pd.Timestamp(hi) + pd.Timedelta(days=1)).strftime("%Y-%m-%d"), "2026-07-31")
 
     sd = load(args.scores)
     gd = group_day(sd)
@@ -152,7 +157,7 @@ def main():
     pl.to_csv(args.out / "placebo.csv", index=False)
 
     main_c = "neg_share_equal"
-    lines = [f"H2, measure {main_c} (share of negative comments, subreddits weighted equally)",
+    lines = [f"H2, measure {main_c} (share of negative comments, subreddits weighted equally), window {args.window}",
              f"days: " + ", ".join(f"{p} {len(idx[p])}" for p in PERIODS), ""]
     for g in GROUPS:
         r = lv[(lv.measure == main_c) & (lv.group == g)].set_index("period")
@@ -161,6 +166,9 @@ def main():
         lines.append(f"{g:6s} baseline {r.loc['baseline','value']:.1%} -> window {r.loc['window','value']:.1%} "
                      f"| change {c_.value:+.1%} [{c_.ci_lo:+.1%}, {c_.ci_hi:+.1%}] "
                      f"| placebo: {q:.1%} of ordinary {w}-day baseline windows rise at least as much")
+        if c_.ci_lo <= 0 <= c_.ci_hi:  # not significant: say what the interval still allows and rules out
+            lines.append(f"{'':6s} CI includes 0 (width {c_.ci_hi - c_.ci_lo:.1%}): compatible with no change, but also with "
+                         f"a rise up to {c_.ci_hi:+.1%} or a fall down to {c_.ci_lo:+.1%}; rules out larger shifts")
     lines.append("")
     for _, r in ch[(ch.measure == main_c) & ch.contrast.str.startswith("DiD window")].iterrows():
         lines.append(f"{r.contrast}: {r.value:+.1%} [{r.ci_lo:+.1%}, {r.ci_hi:+.1%}]")
